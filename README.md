@@ -1,0 +1,3 @@
+# Docker Image for OCR4all
+
+TODO: Update...
