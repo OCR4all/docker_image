@@ -13,21 +13,22 @@ RUN apt-get update && apt-get install -y \
     git \
     maven \
     tomcat8 \
-    openjdk-8-jdk\
-    python-skimage \
-    python2.7 \
-    python2.7-numpy \
-    python-matplotlib \
-    python2.7-scipy \
-    python2.7-lxml \
+    openjdk-8-jdk-headless \
+    python2.7 python-pip python3 python3-pip python3-pil \
     wget \
-    python3 \
-    python3-lxml \
-    python3-pil \
-    python3-setuptools \
-    python3-pip \
     supervisor && \
+    pip install scikit-image numpy matplotlib scipy lxml && \
+    pip3 install lxml setuptools && \
     rm -rf /var/lib/apt/lists/*
+
+#    python-skimage \
+#    python2.7-numpy \
+#    python-matplotlib \
+#    python2.7-scipy \
+#    python2.7-lxml \
+
+#    python3-lxml \
+#    python3-setuptools \
 
 # Set the locale, Solve Tomcat issues with Ubuntu
 
@@ -39,9 +40,6 @@ RUN pip3 install --upgrade tensorflow
 
 # Put supervisor process manager configuration to container
 RUN wget -P /etc/supervisor/conf.d https://gitlab2.informatik.uni-wuerzburg.de/chr58bk/OCR4all_Web/raw/master/supervisord.conf
-
-# Repository
-#RUN cd /opt && git clone --recurse-submodules https://github.com/OCR4all/OCR4all.git
 
 # Enabling direct request in Larex submodule
 #RUN sed -i 's/#directrequest:<value>/directrequest:enable/' /opt/OCR4all_Web/submodules/LAREX/Larex/src/main/webapp/WEB-INF/larex.config
@@ -77,11 +75,13 @@ RUN rm /usr/lib/jvm/default-java && \
     ln -s /usr/lib/jvm/java-1.8.0-openjdk-amd64 /usr/lib/jvm/default-java && \
     update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
 
+ENV OCR4ALL_VERSION="0.0.1" GTCWEB_VERSION="0.0.1" LAREX_VERSION="0.0.1"
+
 # Download maven project
 RUN cd /var/lib/tomcat8/webapps && \
-    wget $ARTIFACTORY_URL/OCR4all_Web/0.0.1-SNAPSHOT/OCR4all_Web-0.0.1-20190201.151223-2.war -O OCR4all_Web.war && \
-    wget $ARTIFACTORY_URL/GTC_Web/0.0.1-SNAPSHOT/GTC_Web-0.0.1-20190124.144432-2.war -O GTC_Web.war && \
-    wget $ARTIFACTORY_URL/Larex/0.0.1-SNAPSHOT/Larex-0.0.1-20190130.185205-2.war -O Larex.war
+    wget $ARTIFACTORY_URL/OCR4all_Web/$OCR4ALL_VERSION/OCR4all_Web-$OCR4ALL_VERSION.war -O OCR4all_Web.war && \
+    wget $ARTIFACTORY_URL/GTC_Web/$GTCWEB_VERSION/GTC_Web-$GTCWEB_VERSION.war -O GTC_Web.war && \
+    wget $ARTIFACTORY_URL/Larex/$LAREX_VERSION/Larex-$LAREX_VERSION.war -O Larex.war
     # TODO: direct request is not enabled in this version of Larex!
 
 # Create ocr4all directories and grant tomcat permissions
@@ -108,6 +108,11 @@ RUN ln -s /var/lib/tomcat8/common $CATALINA_HOME/common && \
 
 # Create index.html for calling url without tool!
 COPY index.html /usr/share/tomcat8/webapps/ROOT/index.html
+
+# Copy larex.config
+COPY larex.config /larex.config
+
+ENV LAREX_CONFIG=/larex.config
 
 # Start processes when container is started
 ENTRYPOINT [ "/usr/bin/supervisord" ]
