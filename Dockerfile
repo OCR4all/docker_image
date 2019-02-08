@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
     maven \
     tomcat8 \
     openjdk-8-jdk-headless \
-    python2.7 python-pip python3 python3-pip python3-pil \
+    python2.7 python-pip python3 python3-pip python3-pil python-tk \
     wget \
     supervisor && \
     pip install scikit-image numpy matplotlib scipy lxml && \
