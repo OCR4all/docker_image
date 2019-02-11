@@ -58,9 +58,6 @@ RUN cd /opt && git clone https://github.com/Calamari-OCR/calamari.git && \
         do ln -s /usr/local/bin/$CALAMARI_SCRIPT /bin/$CALAMARI_SCRIPT; \
     done
 
-# Make pagedir2pagexml.py available to JAVA environment
-COPY pagedir2pagexml.py /bin/pagedir2pagexml.py
-
 # Install nashi
 #RUN cd /opt/OCR4all_Web/submodules/nashi/server && \
 #    python3 setup.py install && \
