@@ -75,7 +75,7 @@ RUN rm /usr/lib/jvm/default-java && \
     ln -s /usr/lib/jvm/java-1.8.0-openjdk-amd64 /usr/lib/jvm/default-java && \
     update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
 
-ENV OCR4ALL_VERSION="0.0.1" GTCWEB_VERSION="0.0.1" LAREX_VERSION="0.0.1"
+ENV OCR4ALL_VERSION="0.0.2" GTCWEB_VERSION="0.0.1" LAREX_VERSION="0.0.1"
 
 # Download maven project
 RUN cd /var/lib/tomcat8/webapps && \
