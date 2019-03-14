@@ -14,7 +14,12 @@ ENV OCR4ALL_VERSION="0.0.2" \
     OCROPY_COMMIT="a22a3ab4"
 
 # Put supervisor process manager configuration to container
-COPY  supervisord.conf /etc/supervisor/conf.d
+COPY supervisord.conf /etc/supervisor/conf.d
+
+# Copy pagedir2pagexml, softlink it
+COPY pagedir2pagexml.py /usr/local/bin/pagedir2pagexml.py
+
+RUN ln -s /usr/local/pagedir2pagexml.py /bin/pagedir2pagexml.py
 
 # Install ocropy, make all ocropy scripts available to JAVA environment
 RUN cd /opt && git clone https://gitlab2.informatik.uni-wuerzburg.de/chr58bk/mptv.git ocropy && \
