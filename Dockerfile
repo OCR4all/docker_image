@@ -7,11 +7,11 @@ RUN rm /usr/lib/jvm/default-java && \
 
 ARG ARTIFACTORY_URL=http://artifactory-ls6.informatik.uni-wuerzburg.de/artifactory/libs-snapshot/de/uniwue
 
-ENV OCR4ALL_VERSION="0.0.2" \
-    GTCWEB_VERSION="0.0.1" \
+ENV OCR4ALL_VERSION="0.0.3" \
+    GTCWEB_VERSION="0.0.1-1" \
     LAREX_VERSION="0.0.1" \
     CALAMARI_COMMIT="8a2857b9a4cf66a514e344bc8b52973ab8f2882d" \
-    OCROPY_COMMIT="a22a3ab4"
+    OCROPY_COMMIT="5c18b238"
 
 # Put supervisor process manager configuration to container
 COPY supervisord.conf /etc/supervisor/conf.d
@@ -22,7 +22,8 @@ COPY pagedir2pagexml.py /usr/local/bin/pagedir2pagexml.py
 RUN ln -s /usr/local/pagedir2pagexml.py /bin/pagedir2pagexml.py
 
 # Install ocropy, make all ocropy scripts available to JAVA environment
-RUN cd /opt && git clone https://gitlab2.informatik.uni-wuerzburg.de/chr58bk/mptv.git ocropy && \
+# DEBUG: TODO replace s330790 with chr58bk if pull request is accepted
+RUN cd /opt && git clone https://gitlab2.informatik.uni-wuerzburg.de/s330790/mptv.git ocropy && \
     cd ocropy && git reset --hard ${OCROPY_COMMIT} && \
     python2.7 setup.py install && \
     for OCR_SCRIPT in `cd /usr/local/bin && ls ocropus-*`; \
