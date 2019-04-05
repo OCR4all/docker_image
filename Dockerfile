@@ -7,7 +7,7 @@ RUN rm /usr/lib/jvm/default-java && \
 
 ARG ARTIFACTORY_URL=http://artifactory-ls6.informatik.uni-wuerzburg.de/artifactory/libs-snapshot/de/uniwue
 
-ENV OCR4ALL_VERSION="0.0.4" \
+ENV OCR4ALL_VERSION="0.0.4-1" \
     GTCWEB_VERSION="0.0.1-1" \
     LAREX_VERSION="0.0.1" \
     CALAMARI_COMMIT="8a2857b9a4cf66a514e344bc8b52973ab8f2882d" \
@@ -52,6 +52,10 @@ RUN cd /var/lib/tomcat8/webapps && \
     wget $ARTIFACTORY_URL/OCR4all_Web/$OCR4ALL_VERSION/OCR4all_Web-$OCR4ALL_VERSION.war -O OCR4all_Web.war && \
     wget $ARTIFACTORY_URL/GTC_Web/$GTCWEB_VERSION/GTC_Web-$GTCWEB_VERSION.war -O GTC_Web.war && \
     wget $ARTIFACTORY_URL/Larex/$LAREX_VERSION/Larex-$LAREX_VERSION.war -O Larex.war
+
+#DEBUG TODO:REMOVE and update Versions
+#COPY OCR4all_Web.war /var/lib/tomcat8/webapps/OCR4all_Web.war
+#COPY GTC_Web.war /var/lib/tomcat8/webapps/GTC_Web.war
 
 # Create ocr4all directories and grant tomcat permissions
 RUN mkdir -p /var/ocr4all/data && \
