@@ -39,13 +39,13 @@ RUN cd /opt && git clone https://github.com/Calamari-OCR/calamari.git && \
     done
 
 # Install nashi
-#RUN cd /opt/OCR4all_Web/submodules/nashi/server && \
-#    python3 setup.py install && \
-#    python3 -c "from nashi.database import db_session,init_db; init_db(); db_session.commit()" && \
-#    echo 'BOOKS_DIR="/var/ocr4all/data/"\nIMAGE_SUBDIR="/PreProc/Gray/"' > nashi-config.py
-#ENV FLASK_APP nashi
-#ENV NASHI_SETTINGS /opt/OCR4all_Web/submodules/nashi/server/nashi-config.py
-#ENV DATABASE_URL sqlite:////opt/OCR4all_Web/submodules/nashi/server/test.db
+RUN cd /opt/ && git clone https://github.com/andbue/nashi.git && cd  nashi/server && \
+    python3 setup.py install && \
+    python3 -c "from nashi.database import db_session,init_db; init_db(); db_session.commit()" && \
+    echo 'BOOKS_DIR="/var/ocr4all/data/"\nIMAGE_SUBDIR="/PreProc/Gray/"' > nashi-config.py
+ENV FLASK_APP nashi
+ENV NASHI_SETTINGS /opt/nashi/server/nashi-config.py
+ENV DATABASE_URL sqlite:////opt/nashi/server/test.db
 
 # Download maven project
 RUN cd /var/lib/tomcat8/webapps && \
@@ -54,7 +54,7 @@ RUN cd /var/lib/tomcat8/webapps && \
     wget $ARTIFACTORY_URL/Larex/$LAREX_VERSION/Larex-$LAREX_VERSION.war -O Larex.war
 
 #DEBUG TODO:REMOVE and update Versions
-#COPY OCR4all_Web.war /var/lib/tomcat8/webapps/OCR4all_Web.war
+COPY OCR4all_Web.war /var/lib/tomcat8/webapps/OCR4all_Web.war
 #COPY GTC_Web.war /var/lib/tomcat8/webapps/GTC_Web.war
 
 # Create ocr4all directories and grant tomcat permissions
