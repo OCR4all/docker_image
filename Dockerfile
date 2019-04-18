@@ -7,11 +7,12 @@ RUN rm /usr/lib/jvm/default-java && \
 
 ARG ARTIFACTORY_URL=http://artifactory-ls6.informatik.uni-wuerzburg.de/artifactory/libs-snapshot/de/uniwue
 
-ENV OCR4ALL_VERSION="0.0.5" \
+ENV OCR4ALL_VERSION="0.0.5-1" \
     GTCWEB_VERSION="0.0.1-1" \
     LAREX_VERSION="0.0.1" \
-    CALAMARI_COMMIT="8a2857b9a4cf66a514e344bc8b52973ab8f2882d" \
-    OCROPY_COMMIT="5c18b238"
+    CALAMARI_COMMIT="9a4c904fe89a06a98c63ab2df2a2c9adf024c0f9" \
+    OCROPY_COMMIT="5c18b238"\
+    NASHI_COMMIT="12868a16439035c9b0a6e7d961a0d0b24c61b039"
 
 # Put supervisor process manager configuration to container
 COPY supervisord.conf /etc/supervisor/conf.d
@@ -39,8 +40,8 @@ RUN cd /opt && git clone -b master https://github.com/Calamari-OCR/calamari.git 
     done
 
 # Install nashi
-RUN cd /opt/ && git clone -b master --depth 1 https://github.com/andbue/nashi.git && cd  nashi/server && \
-    python3 setup.py install && \
+RUN cd /opt/ && git clone -b master https://github.com/andbue/nashi.git && cd  nashi/server && \
+    git reset --hard ${NASHI_COMMIT} && python3 setup.py install && \
     python3 -c "from nashi.database import db_session,init_db; init_db(); db_session.commit()" && \
     echo 'BOOKS_DIR="/var/ocr4all/data/"\nIMAGE_SUBDIR="/PreProc/Gray/"' > nashi-config.py
 ENV FLASK_APP="nashi" \
