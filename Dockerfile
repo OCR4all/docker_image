@@ -7,7 +7,7 @@ RUN rm /usr/lib/jvm/default-java && \
 
 ARG ARTIFACTORY_URL=http://artifactory-ls6.informatik.uni-wuerzburg.de/artifactory/libs-snapshot/de/uniwue
 
-ENV OCR4ALL_VERSION="0.0.5-1" \
+ENV OCR4ALL_VERSION="0.0.5-2" \
     GTCWEB_VERSION="0.0.1-1" \
     LAREX_VERSION="0.0.1" \
     CALAMARI_COMMIT="9a4c904fe89a06a98c63ab2df2a2c9adf024c0f9" \
@@ -50,7 +50,7 @@ ENV FLASK_APP="nashi" \
 
 # Download maven project
 RUN cd /var/lib/tomcat8/webapps && \
-    wget $ARTIFACTORY_URL/OCR4all_Web/$OCR4ALL_VERSION/OCR4all_Web-$OCR4ALL_VERSION.war -O OCR4all_Web.war && \
+#    wget $ARTIFACTORY_URL/OCR4all_Web/$OCR4ALL_VERSION/OCR4all_Web-$OCR4ALL_VERSION.war -O OCR4all_Web.war && \
     wget $ARTIFACTORY_URL/GTC_Web/$GTCWEB_VERSION/GTC_Web-$GTCWEB_VERSION.war -O GTC_Web.war && \
     wget $ARTIFACTORY_URL/Larex/$LAREX_VERSION/Larex-$LAREX_VERSION.war -O Larex.war
 

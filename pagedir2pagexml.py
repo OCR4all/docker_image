@@ -18,12 +18,12 @@ from PIL import Image
 def pagexmlcombine(ocrindex, gtindex, xmlfile, output):
 
     xmlfile = path.abspath(xmlfile)
-    pagedir = path.split(xmlfile)[0] + '/Pages'    
-    commentsdir = path.split(xmlfile)[0] + '/Comments'
+    pagedir = path.split(xmlfile)[0]    
+    commentsdir = path.join(path.split(xmlfile)[0], 'comments')
     pagename = path.splitext(path.basename(xmlfile))[0]
     
-    thispagedir = pagedir + '/' + pagename
-    commentsfile = commentsdir + '/' + pagename + '.txt'
+    thispagedir = path.join(pagedir,pagename)
+    commentsfile = path.join(commentsdir, pagename + '.txt')
     
     # load xml
     root = etree.parse(xmlfile).getroot()
