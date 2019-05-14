@@ -7,8 +7,8 @@ RUN rm /usr/lib/jvm/default-java && \
 
 ARG ARTIFACTORY_URL=http://artifactory-ls6.informatik.uni-wuerzburg.de/artifactory/libs-snapshot/de/uniwue
 
-ENV OCR4ALL_VERSION="0.0.5-3" \
-    GTCWEB_VERSION="0.0.1-1" \
+ENV OCR4ALL_VERSION="0.0.5-4" \
+    GTCWEB_VERSION="0.0.1-2" \
     LAREX_VERSION="0.0.2-1" \
     CALAMARI_COMMIT="9a4c904fe89a06a98c63ab2df2a2c9adf024c0f9" \
     OCROPY_COMMIT="5c18b238"\
