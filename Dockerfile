@@ -7,24 +7,19 @@ RUN rm /usr/lib/jvm/default-java && \
 
 ARG ARTIFACTORY_URL=http://artifactory-ls6.informatik.uni-wuerzburg.de/artifactory/libs-snapshot/de/uniwue
 
-ENV OCR4ALL_VERSION="0.0.5-4" \
-    GTCWEB_VERSION="0.0.1-2" \
-    LAREX_VERSION="0.0.2-1" \
-    CALAMARI_COMMIT="9a4c904fe89a06a98c63ab2df2a2c9adf024c0f9" \
-    OCROPY_COMMIT="5c18b238"\
+ENV OCR4ALL_VERSION="0.0.7" \
+    GTCWEB_VERSION="0.0.1-1" \
+    LAREX_VERSION="0.1.0" \
+    CALAMARI_COMMIT="25c1567e1f766b7d75ee54e68e340ed2359c3731" \
+    HELPER_SCRIPTS_COMMIT="5c4d132d3fc26e20a3958a0da6c738fe08ac15af" \
+    OCROPY_COMMIT="b02b4ef2280a46dc27c206310515e94e46a34249"\
     NASHI_COMMIT="12868a16439035c9b0a6e7d961a0d0b24c61b039"
 
 # Put supervisor process manager configuration to container
 COPY supervisord.conf /etc/supervisor/conf.d
 
-# Copy pagedir2pagexml, softlink it
-COPY pagedir2pagexml.py /usr/local/bin/pagedir2pagexml.py
-
-RUN ln -s /usr/local/pagedir2pagexml.py /bin/pagedir2pagexml.py
-
 # Install ocropy, make all ocropy scripts available to JAVA environment
-# DEBUG: TODO replace s330790 with chr58bk if pull request is accepted
-RUN cd /opt && git clone -b master https://gitlab2.informatik.uni-wuerzburg.de/s330790/mptv.git ocropy && \
+RUN cd /opt && git clone -b master https://gitlab2.informatik.uni-wuerzburg.de/chr58bk/mptv.git ocropy && \
     cd ocropy && git reset --hard ${OCROPY_COMMIT} && \
     python2.7 setup.py install && \
     for OCR_SCRIPT in `cd /usr/local/bin && ls ocropus-*`; \
@@ -32,21 +27,17 @@ RUN cd /opt && git clone -b master https://gitlab2.informatik.uni-wuerzburg.de/s
     done
 
 # Install calamari, make all calamari scripts available to JAVA environment
-RUN cd /opt && git clone -b master https://github.com/Calamari-OCR/calamari.git && \
+RUN cd /opt && git clone -b pagexml-params https://github.com/Calamari-OCR/calamari.git && \
     cd calamari && git reset --hard ${CALAMARI_COMMIT} && \
     python3 setup.py install && \
     for CALAMARI_SCRIPT in `cd /usr/local/bin && ls calamari-*`; \
         do ln -s /usr/local/bin/$CALAMARI_SCRIPT /bin/$CALAMARI_SCRIPT; \
     done
 
-# Install nashi
-RUN cd /opt/ && git clone -b master https://github.com/andbue/nashi.git && cd  nashi/server && \
-    git reset --hard ${NASHI_COMMIT} && python3 setup.py install && \
-    python3 -c "from nashi.database import db_session,init_db; init_db(); db_session.commit()" && \
-    echo 'BOOKS_DIR="/var/ocr4all/data/"\nIMAGE_SUBDIR="/PreProc/Gray/"' > nashi-config.py
-ENV FLASK_APP="nashi" \
-    NASHI_SETTINGS="/opt/nashi/server/nashi-config.py" \
-    DATABASE_URL="sqlite:////opt/nashi/server/test.db"
+# Install helper scripts to make all scripts available to JAVA environment
+RUN cd /opt && git clone -b master https://github.com/OCR4all/OCR4all_helper-scripts.git && \
+    cd OCR4all_helper-scripts && git reset --hard ${HELPER_SCRIPTS_COMMIT} && \
+    python3 setup.py install 
 
 # Download maven project
 RUN cd /var/lib/tomcat8/webapps && \
