@@ -41,7 +41,7 @@ RUN cd /opt && git clone -b master https://github.com/Calamari-OCR/calamari.git 
     done
 
 # Install helper scripts to make all scripts available to JAVA environment
-ARG HELPER_SCRIPTS_COMMIT="a7e77c6a626562b89959794c824d6a96b3e09e17"
+ARG HELPER_SCRIPTS_COMMIT="7b4004de3ad51d50a9143c40855b2a715ff3d033"
 RUN cd /opt && git clone -b master https://github.com/OCR4all/OCR4all_helper-scripts.git && \
     cd OCR4all_helper-scripts && git reset --hard ${HELPER_SCRIPTS_COMMIT} && \
     python3 setup.py install 
