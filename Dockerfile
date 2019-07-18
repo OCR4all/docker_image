@@ -23,7 +23,7 @@ RUN cd /opt && git clone -b master --depth 1 https://github.com/Calamari-OCR/ocr
 
 
 # Install ocropy, make all ocropy scripts available to JAVA environment
-ARG OCROPY_COMMIT="b02b4ef2280a46dc27c206310515e94e46a34249"
+ARG OCROPY_COMMIT="870caf25554f61d0a3407a6ccca4894c8cfc6f11"
 RUN cd /opt && git clone -b master https://gitlab2.informatik.uni-wuerzburg.de/chr58bk/mptv.git ocropy && \
     cd ocropy && git reset --hard ${OCROPY_COMMIT} && \
     python2.7 setup.py install && \
@@ -32,7 +32,7 @@ RUN cd /opt && git clone -b master https://gitlab2.informatik.uni-wuerzburg.de/c
     done
 
 # Install calamari, make all calamari scripts available to JAVA environment
-ARG CALAMARI_COMMIT="b45860dfd7034f726581eef15a2eb7ac5104cf97"
+ARG CALAMARI_COMMIT="250b9bf35ed9826873aa6b28229ff33fa9c6a7e7"
 RUN cd /opt && git clone -b master https://github.com/Calamari-OCR/calamari.git && \
     cd calamari && git reset --hard ${CALAMARI_COMMIT} && \
     python3 setup.py install && \
@@ -41,15 +41,15 @@ RUN cd /opt && git clone -b master https://github.com/Calamari-OCR/calamari.git 
     done
 
 # Install helper scripts to make all scripts available to JAVA environment
-ARG HELPER_SCRIPTS_COMMIT="a7e77c6a626562b89959794c824d6a96b3e09e17"
+ARG HELPER_SCRIPTS_COMMIT="7b4004de3ad51d50a9143c40855b2a715ff3d033"
 RUN cd /opt && git clone -b master https://github.com/OCR4all/OCR4all_helper-scripts.git && \
     cd OCR4all_helper-scripts && git reset --hard ${HELPER_SCRIPTS_COMMIT} && \
     python3 setup.py install 
 
 # Download maven project
-ENV OCR4ALL_VERSION="0.0.7-5" \
-    GTCWEB_VERSION="0.0.1-3" \
-    LAREX_VERSION="0.1.6" 
+ENV OCR4ALL_VERSION="0.1.1-2" \
+    GTCWEB_VERSION="0.0.1-5" \
+    LAREX_VERSION="0.1.8-3" 
 RUN cd /var/lib/tomcat8/webapps && \
     wget $ARTIFACTORY_URL/OCR4all_Web/$OCR4ALL_VERSION/OCR4all_Web-$OCR4ALL_VERSION.war -O OCR4all_Web.war && \
     wget $ARTIFACTORY_URL/GTC_Web/$GTCWEB_VERSION/GTC_Web-$GTCWEB_VERSION.war -O GTC_Web.war && \
