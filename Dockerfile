@@ -23,7 +23,7 @@ RUN cd /opt && git clone -b master --depth 1 https://github.com/Calamari-OCR/ocr
 
 
 # Install ocropy, make all ocropy scripts available to JAVA environment
-ARG OCROPY_COMMIT="b02b4ef2280a46dc27c206310515e94e46a34249"
+ARG OCROPY_COMMIT="870caf25554f61d0a3407a6ccca4894c8cfc6f11"
 RUN cd /opt && git clone -b master https://gitlab2.informatik.uni-wuerzburg.de/chr58bk/mptv.git ocropy && \
     cd ocropy && git reset --hard ${OCROPY_COMMIT} && \
     python2.7 setup.py install && \
@@ -47,7 +47,7 @@ RUN cd /opt && git clone -b master https://github.com/OCR4all/OCR4all_helper-scr
     python3 setup.py install 
 
 # Download maven project
-ENV OCR4ALL_VERSION="0.1.1-1" \
+ENV OCR4ALL_VERSION="0.1.1-2" \
     GTCWEB_VERSION="0.0.1-5" \
     LAREX_VERSION="0.1.8-3" 
 RUN cd /var/lib/tomcat8/webapps && \
