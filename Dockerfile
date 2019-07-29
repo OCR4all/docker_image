@@ -41,13 +41,13 @@ RUN cd /opt && git clone -b master https://github.com/Calamari-OCR/calamari.git 
     done
 
 # Install helper scripts to make all scripts available to JAVA environment
-ARG HELPER_SCRIPTS_COMMIT="7b4004de3ad51d50a9143c40855b2a715ff3d033"
+ARG HELPER_SCRIPTS_COMMIT="2981e75070239c4c76d521f6bbf73db7ae148406"
 RUN cd /opt && git clone -b master https://github.com/OCR4all/OCR4all_helper-scripts.git && \
     cd OCR4all_helper-scripts && git reset --hard ${HELPER_SCRIPTS_COMMIT} && \
     python3 setup.py install 
 
 # Download maven project
-ENV OCR4ALL_VERSION="0.1.1-4.2" \
+ENV OCR4ALL_VERSION="0.1.2" \
     GTCWEB_VERSION="0.0.1-5" \
     LAREX_VERSION="0.1.8-7" 
 RUN cd /var/lib/tomcat8/webapps && \
