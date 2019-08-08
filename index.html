@@ -1,15 +1,82 @@
 <!doctype html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <title>OCR4All</title>
-</head>
-<body>
-<h1>Tools</h1>
-<ul>
-    <li><a href="/OCR4all_Web">OCR4all</a></li>
-    <li><a href="/Larex">Larex</a></li>
-    <li><a href="/GTC_Web">GTC_Web</a></li>
-</ul>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<title>OCR4All</title>
+		<style>
+			* {
+				box-sizing:border-box;
+				font-family: Georgia, serif;
+			}
+			body {
+				margin: 0px;
+				padding: 0px;
+			}
+			h1 {
+				background-color:#283593;
+				color: white;
+				padding: 20px 40px;
+				margin-top: 0;
+				font-size: 60px;
+				font-weight:normal;
+			}
+			article {
+				box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12),0 3px 1px -2px rgba(0,0,0,0.2);
+				border-top: 1px solid #ddd;
+				border-right: 1px solid #ddd;
+				border-left: 1px solid #ddd;
+				margin: .5rem 0 1rem 0;
+				width: 90%;
+				max-width: 1280px;
+				padding: 10px 30px;
+				margin: 0px auto;
+			}
+			ul {
+				list-style:none;	
+				padding: 0;
+			}
+			li {
+				border-top: 1px solid #ddd;
+				border-right: 1px solid #ddd;
+				border-left: 1px solid #ddd;
+				margin: 0;
+			}
+			a {
+				width:100%;
+				padding: 5px 20px;
+				display: block;
+				text-decoration: none;
+				color: #5c6bc0;
+			}
+			a:hover{
+				background-color: #5c6bc0;
+				color: white;
+			}
+			li:last-child {
+				border-bottom: 1px solid #ddd;
+			}
+			@media only screen and (min-width: 601px){
+				article {
+				    width: 85%;
+				    max-width: none;
+				}
+			}
+			@media only screen and (min-width: 601px){
+					article {
+					    width: 85%;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<h1>OCR4all - Tools</h1>
+		<article>
+			<p>Web tools:</p>
+			<ul>
+				<li><a href="/OCR4all_Web">OCR4all - Main web interface</a></li>
+				<li><a href="/Larex">Larex - Segmentation and Groundtruth production tool</a></li>
+				<li><a href="/GTC_Web">GTC_Web - Groundtruth production tool</a></li>
+			</ul>
+		</article>
+	</body>
 </html>
