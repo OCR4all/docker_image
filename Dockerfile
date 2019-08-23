@@ -21,7 +21,6 @@ RUN mkdir -p /var/ocr4all/data && \
 RUN cd /opt && git clone -b master --depth 1 https://github.com/Calamari-OCR/ocr4all_models.git && \
     ln -s /opt/ocr4all_models/default /var/ocr4all/models/default/default;
 
-
 # Install ocropy, make all ocropy scripts available to JAVA environment
 ARG OCROPY_COMMIT="d1472da2dd28373cda4fcbdc84956d13ff75569c"
 RUN cd /opt && git clone -b master https://gitlab2.informatik.uni-wuerzburg.de/chr58bk/mptv.git ocropy && \
@@ -48,7 +47,7 @@ RUN cd /opt && git clone -b master https://github.com/OCR4all/OCR4all_helper-scr
 
 # Download maven project
 ENV OCR4ALL_VERSION="0.2.0d" \
-    LAREX_VERSION="0.1.8-7" 
+    LAREX_VERSION="0.1.9d" 
 RUN cd /var/lib/tomcat8/webapps && \
     wget $ARTIFACTORY_URL/OCR4all_Web/$OCR4ALL_VERSION/OCR4all_Web-$OCR4ALL_VERSION.war -O OCR4all_Web.war && \
     wget $ARTIFACTORY_URL/Larex/$LAREX_VERSION/Larex-$LAREX_VERSION.war -O Larex.war
@@ -63,7 +62,6 @@ RUN ln -s /var/lib/tomcat8/common $CATALINA_HOME/common && \
     mkdir $CATALINA_HOME/logs && \
     ln -s /var/lib/tomcat8/webapps/OCR4all_Web.war $CATALINA_HOME/webapps && \
     ln -s /var/lib/tomcat8/webapps/Larex.war $CATALINA_HOME/webapps
-
 
 # Put supervisor process manager configuration to container
 COPY supervisord.conf /etc/supervisor/conf.d
