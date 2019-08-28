@@ -46,7 +46,7 @@ RUN cd /opt && git clone -b master https://github.com/OCR4all/OCR4all_helper-scr
     python3 setup.py install 
 
 # Download maven project
-ENV OCR4ALL_VERSION="0.2.0d" \
+ENV OCR4ALL_VERSION="0.2.1d" \
     LAREX_VERSION="0.1.9d" 
 RUN cd /var/lib/tomcat8/webapps && \
     wget $ARTIFACTORY_URL/OCR4all_Web/$OCR4ALL_VERSION/OCR4all_Web-$OCR4ALL_VERSION.war -O OCR4all_Web.war && \
