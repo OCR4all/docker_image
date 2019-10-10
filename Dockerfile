@@ -32,8 +32,9 @@ RUN cd /opt && git clone -b master https://gitlab2.informatik.uni-wuerzburg.de/c
     done
 
 # Install calamari, make all calamari scripts available to JAVA environment
-ARG CALAMARI_COMMIT="250b9bf35ed9826873aa6b28229ff33fa9c6a7e7"
-RUN cd /opt && git clone -b master https://github.com/Calamari-OCR/calamari.git && \
+# TODO Use Nesbi/calamari pagexml_rotation as long as pagexml_rotation is not merged in Calamari-OCR/calamari master
+ARG CALAMARI_COMMIT="523c59b76d13f55ce51487b72f4ae0e593bd8226"
+RUN cd /opt && git clone -b pagexml_rotation https://github.com/Nesbi/calamari.git && \
     cd calamari && git reset --hard ${CALAMARI_COMMIT} && \
     python3 setup.py install && \
     for CALAMARI_SCRIPT in `cd /usr/local/bin && ls calamari-*`; \
@@ -41,13 +42,13 @@ RUN cd /opt && git clone -b master https://github.com/Calamari-OCR/calamari.git 
     done
 
 # Install helper scripts to make all scripts available to JAVA environment
-ARG HELPER_SCRIPTS_COMMIT="b8019b084499a2a481eebc5f61cd7cac26c8b30b"
+ARG HELPER_SCRIPTS_COMMIT="18a42aa3170152ef659408843c7126a5764e9587"
 RUN cd /opt && git clone -b master https://github.com/OCR4all/OCR4all_helper-scripts.git && \
     cd OCR4all_helper-scripts && git reset --hard ${HELPER_SCRIPTS_COMMIT} && \
     python3 setup.py install 
 
 # Download maven project
-ENV OCR4ALL_VERSION="0.1.2-2" \
+ENV OCR4ALL_VERSION="0.1.2-3" \
     GTCWEB_VERSION="0.0.1-6" \
     LAREX_VERSION="0.1.8-7" 
 RUN cd /var/lib/tomcat8/webapps && \
