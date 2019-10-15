@@ -18,7 +18,11 @@ RUN mkdir -p /var/ocr4all/data && \
     chgrp -R tomcat8 /var/ocr4all
 
 # Make pretrained CALAMARI models available to the project environment
-RUN cd /opt && git clone -b master --depth 1 https://github.com/Calamari-OCR/ocr4all_models.git && \
+ARG CALAMARI_MODELS_VERSION="0.3"
+RUN wget https://github.com/Calamari-OCR/calamari_models/archive/${CALAMARI_MODELS_VERSION}.tar.gz -O /opt/calamari_models.tar.gz && \
+    tar -xvzf /opt/calamari_models.tar.gz && \
+    ls /opt/ && \
+    rm /opt/calamari_models.tar.gz && \
     ln -s /opt/ocr4all_models/default /var/ocr4all/models/default/default;
 
 
