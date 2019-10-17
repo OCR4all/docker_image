@@ -18,7 +18,12 @@ RUN mkdir -p /var/ocr4all/data && \
     chgrp -R tomcat8 /var/ocr4all
 
 # Make pretrained CALAMARI models available to the project environment
-RUN cd /opt && git clone -b master --depth 1 https://github.com/Calamari-OCR/ocr4all_models.git && \
+## Update to future calamari version v1.x.x will require new models
+ARG CALAMARI_MODELS_VERSION="0.3"
+RUN wget https://github.com/OCR4all/ocr4all_models/archive/${CALAMARI_MODELS_VERSION}.tar.gz -O /opt/ocr4all_models.tar.gz && \
+    mkdir -p /opt/ocr4all_models/ && \
+    tar -xvzf /opt/ocr4all_models.tar.gz -C /opt/ocr4all_models/ --strip-components=1 && \
+    rm /opt/ocr4all_models.tar.gz && \
     ln -s /opt/ocr4all_models/default /var/ocr4all/models/default/default;
 
 # Install ocropy, make all ocropy scripts available to JAVA environment
@@ -31,8 +36,9 @@ RUN cd /opt && git clone -b master https://gitlab2.informatik.uni-wuerzburg.de/c
     done
 
 # Install calamari, make all calamari scripts available to JAVA environment
-ARG CALAMARI_COMMIT="523c59b76d13f55ce51487b72f4ae0e593bd8226"
-RUN cd /opt && git clone -b pagexml_rotation https://github.com/Nesbi/calamari.git && \
+## calamari from source with version: v0.x.x
+ARG CALAMARI_COMMIT="c4d8fdd5f2c849a6d316479caee79d136ebc0f5a" 
+RUN cd /opt && git clone -b master https://github.com/Calamari-OCR/calamari.git && \
     cd calamari && git reset --hard ${CALAMARI_COMMIT} && \
     python3 setup.py install && \
     for CALAMARI_SCRIPT in `cd /usr/local/bin && ls calamari-*`; \
