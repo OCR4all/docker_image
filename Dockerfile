@@ -38,8 +38,8 @@ RUN cd /opt && git clone -b master https://gitlab2.informatik.uni-wuerzburg.de/c
 
 # Install calamari, make all calamari scripts available to JAVA environment
 ## calamari from source with version: v0.x.x
-ARG CALAMARI_COMMIT="c4d8fdd5f2c849a6d316479caee79d136ebc0f5a" 
-RUN cd /opt && git clone -b master https://github.com/Calamari-OCR/calamari.git && \
+ARG CALAMARI_COMMIT="ac4801e28e45149b51797508fae6cad49e46c82e" 
+RUN cd /opt && git clone -b calamari-0.3 https://github.com/Calamari-OCR/calamari.git && \
     cd calamari && git reset --hard ${CALAMARI_COMMIT} && \
     python3 setup.py install && \
     for CALAMARI_SCRIPT in `cd /usr/local/bin && ls calamari-*`; \
@@ -53,7 +53,7 @@ RUN cd /opt && git clone -b master https://github.com/OCR4all/OCR4all_helper-scr
     python3 setup.py install 
 
 # Download maven project
-ENV OCR4ALL_VERSION="0.1.2-3" \
+ENV OCR4ALL_VERSION="0.1.2-4" \
     GTCWEB_VERSION="0.0.1-6" \
     LAREX_VERSION="0.2.0" 
 RUN cd /var/lib/tomcat8/webapps && \
