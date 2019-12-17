@@ -53,7 +53,7 @@ RUN cd /opt && git clone -b master https://github.com/OCR4all/OCR4all_helper-scr
 
 # Download maven project
 ENV OCR4ALL_VERSION="0.2.2d-1" \
-    LAREX_VERSION="0.2.1" 
+    LAREX_VERSION="0.2.2"
 RUN cd /var/lib/tomcat8/webapps && \
     wget $ARTIFACTORY_URL/OCR4all_Web/$OCR4ALL_VERSION/OCR4all_Web-$OCR4ALL_VERSION.war -O OCR4all_Web.war && \
     wget $ARTIFACTORY_URL/Larex/$LAREX_VERSION/Larex-$LAREX_VERSION.war -O Larex.war
