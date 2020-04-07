@@ -1,4 +1,4 @@
-FROM ls6uniwue/ocr4all_base:latest
+FROM base
 
 # Start processes when container is started
 ENTRYPOINT [ "/usr/bin/supervisord" ]
@@ -37,9 +37,9 @@ RUN cd /opt && git clone -b master https://gitlab2.informatik.uni-wuerzburg.de/c
     done
 
 # Install calamari, make all calamari scripts available to JAVA environment
-## calamari from source with version: v0.x.x
-ARG CALAMARI_COMMIT="6433677ae773e0af8d53606c166726832809996b" 
-RUN cd /opt && git clone -b calamari-0.3 https://github.com/Calamari-OCR/calamari.git && \
+## calamari from source with version: v1.0.4
+ARG CALAMARI_COMMIT="2bf6db5707c1bf5a267073b171386159cbda0620"
+RUN cd /opt && git clone https://github.com/Calamari-OCR/calamari.git && \
     cd calamari && git reset --hard ${CALAMARI_COMMIT} && \
     python3 setup.py install && \
     for CALAMARI_SCRIPT in `cd /usr/local/bin && ls calamari-*`; \
