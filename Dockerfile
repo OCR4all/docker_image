@@ -3,11 +3,6 @@ FROM base
 # Start processes when container is started
 ENTRYPOINT [ "/usr/bin/supervisord" ]
 
-# Force tomcat to use java 8
-RUN rm /usr/lib/jvm/default-java && \
-    ln -s /usr/lib/jvm/java-1.8.0-openjdk-amd64 /usr/lib/jvm/default-java && \
-    update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
-
 ARG ARTIFACTORY_URL=http://artifactory-ls6.informatik.uni-wuerzburg.de/artifactory/libs-snapshot/de/uniwue
 
 # Create ocr4all directories and grant tomcat permissions
