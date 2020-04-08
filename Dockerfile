@@ -31,8 +31,8 @@ RUN cd /opt && git clone -b master https://gitlab2.informatik.uni-wuerzburg.de/c
     done
 
 # Install calamari, make all calamari scripts available to JAVA environment
-## calamari from source with version: v1.0.4
-ARG CALAMARI_COMMIT="2bf6db5707c1bf5a267073b171386159cbda0620"
+## calamari from source with version: v1.0.5
+ARG CALAMARI_COMMIT="94e47c6c3320259a10d1eb4d0eb868c1347f37f4"
 RUN cd /opt && git clone https://github.com/Calamari-OCR/calamari.git && \
     cd calamari && git reset --hard ${CALAMARI_COMMIT} && \
     python3 setup.py install && \
