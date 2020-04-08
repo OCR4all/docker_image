@@ -1,4 +1,4 @@
-FROM base
+FROM ls6uniwue/ocr4all_base:latest
 
 # Start processes when container is started
 ENTRYPOINT [ "/usr/bin/supervisord" ]
