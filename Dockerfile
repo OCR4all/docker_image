@@ -3,11 +3,6 @@ FROM ls6uniwue/ocr4all_base:latest
 # Start processes when container is started
 ENTRYPOINT [ "/usr/bin/supervisord" ]
 
-# Force tomcat to use java 8
-RUN rm /usr/lib/jvm/default-java && \
-    ln -s /usr/lib/jvm/java-1.8.0-openjdk-amd64 /usr/lib/jvm/default-java && \
-    update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
-
 ARG ARTIFACTORY_URL=http://artifactory-ls6.informatik.uni-wuerzburg.de/artifactory/libs-snapshot/de/uniwue
 
 # Create ocr4all directories and grant tomcat permissions
@@ -18,8 +13,7 @@ RUN mkdir -p /var/ocr4all/data && \
     chgrp -R tomcat8 /var/ocr4all
 
 # Make pretrained CALAMARI models available to the project environment
-## Update to future calamari version v1.x.x will require new models
-ARG CALAMARI_MODELS_VERSION="0.3"
+ARG CALAMARI_MODELS_VERSION="1.0"
 RUN wget https://github.com/OCR4all/ocr4all_models/archive/${CALAMARI_MODELS_VERSION}.tar.gz -O /opt/ocr4all_models.tar.gz && \
     mkdir -p /opt/ocr4all_models/ && \
     tar -xvzf /opt/ocr4all_models.tar.gz -C /opt/ocr4all_models/ --strip-components=1 && \
@@ -37,9 +31,9 @@ RUN cd /opt && git clone -b master https://gitlab2.informatik.uni-wuerzburg.de/c
     done
 
 # Install calamari, make all calamari scripts available to JAVA environment
-## calamari from source with version: v0.x.x
-ARG CALAMARI_COMMIT="6433677ae773e0af8d53606c166726832809996b" 
-RUN cd /opt && git clone -b calamari-0.3 https://github.com/Calamari-OCR/calamari.git && \
+## calamari from source with version: v1.0.5
+ARG CALAMARI_COMMIT="94e47c6c3320259a10d1eb4d0eb868c1347f37f4"
+RUN cd /opt && git clone https://github.com/Calamari-OCR/calamari.git && \
     cd calamari && git reset --hard ${CALAMARI_COMMIT} && \
     python3 setup.py install && \
     for CALAMARI_SCRIPT in `cd /usr/local/bin && ls calamari-*`; \
@@ -53,9 +47,9 @@ RUN cd /opt && git clone -b master https://github.com/OCR4all/OCR4all_helper-scr
     python3 setup.py install 
 
 # Download maven project
-ENV OCR4ALL_VERSION="0.1.2-4" \
+ENV OCR4ALL_VERSION="0.3-RC1" \
     GTCWEB_VERSION="0.0.1-6" \
-    LAREX_VERSION="0.2.3"
+    LAREX_VERSION="0.3-RC1"
 RUN cd /var/lib/tomcat8/webapps && \
     wget $ARTIFACTORY_URL/OCR4all_Web/$OCR4ALL_VERSION/OCR4all_Web-$OCR4ALL_VERSION.war -O OCR4all_Web.war && \
     wget $ARTIFACTORY_URL/GTC_Web/$GTCWEB_VERSION/GTC_Web-$GTCWEB_VERSION.war -O GTC_Web.war && \
