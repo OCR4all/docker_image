@@ -32,8 +32,8 @@ RUN cd /opt && git clone -b master https://gitlab2.informatik.uni-wuerzburg.de/c
 
 # Install calamari, make all calamari scripts available to JAVA environment
 ## calamari from source with version: v1.0.5
-ARG CALAMARI_COMMIT="94e47c6c3320259a10d1eb4d0eb868c1347f37f4"
-RUN cd /opt && git clone https://github.com/Calamari-OCR/calamari.git && \
+ARG CALAMARI_COMMIT="7fdba985f0e234332ee1987abcc83619773b5a8c"
+RUN cd /opt && git clone https://github.com/maxnth/calamari.git && \
     cd calamari && git reset --hard ${CALAMARI_COMMIT} && \
     python3 setup.py install && \
     for CALAMARI_SCRIPT in `cd /usr/local/bin && ls calamari-*`; \
@@ -41,18 +41,16 @@ RUN cd /opt && git clone https://github.com/Calamari-OCR/calamari.git && \
     done
 
 # Install helper scripts to make all scripts available to JAVA environment
-ARG HELPER_SCRIPTS_COMMIT="3e82d303d494a8de2208baf4c0044cdd268ac7dd"
+ARG HELPER_SCRIPTS_COMMIT="6ecee08747c301216c7a6da54a328fdacdb4a5fe"
 RUN cd /opt && git clone -b master https://github.com/OCR4all/OCR4all_helper-scripts.git && \
     cd OCR4all_helper-scripts && git reset --hard ${HELPER_SCRIPTS_COMMIT} && \
     python3 setup.py install 
 
 # Download maven project
-ENV OCR4ALL_VERSION="0.3-RC1" \
-    GTCWEB_VERSION="0.0.1-6" \
-    LAREX_VERSION="0.3-RC1"
+ENV OCR4ALL_VERSION="0.3-RC2" \
+    LAREX_VERSION="0.3-RC2"
 RUN cd /var/lib/tomcat8/webapps && \
-    wget $ARTIFACTORY_URL/OCR4all_Web/$OCR4ALL_VERSION/OCR4all_Web-$OCR4ALL_VERSION.war -O OCR4all_Web.war && \
-    wget $ARTIFACTORY_URL/GTC_Web/$GTCWEB_VERSION/GTC_Web-$GTCWEB_VERSION.war -O GTC_Web.war && \
+    wget $ARTIFACTORY_URL/OCR4all_Web/$OCR4ALL_VERSION/OCR4all_Web-$OCR4ALL_VERSION.war -O ocr4all.war && \
     wget $ARTIFACTORY_URL/Larex/$LAREX_VERSION/Larex-$LAREX_VERSION.war -O Larex.war
 
 # Add webapps to tomcat
@@ -63,8 +61,7 @@ RUN ln -s /var/lib/tomcat8/common $CATALINA_HOME/common && \
     mkdir $CATALINA_HOME/temp && \
     mkdir $CATALINA_HOME/webapps && \
     mkdir $CATALINA_HOME/logs && \
-    ln -s /var/lib/tomcat8/webapps/OCR4all_Web.war $CATALINA_HOME/webapps && \
-    ln -s /var/lib/tomcat8/webapps/GTC_Web.war $CATALINA_HOME/webapps && \
+    ln -s /var/lib/tomcat8/webapps/ocr4all.war $CATALINA_HOME/webapps && \
     ln -s /var/lib/tomcat8/webapps/Larex.war $CATALINA_HOME/webapps
 
 
