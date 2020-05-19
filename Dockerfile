@@ -50,7 +50,7 @@ RUN cd /opt && git clone -b master https://github.com/OCR4all/OCR4all_helper-scr
 ENV OCR4ALL_VERSION="0.3-RC2" \
     LAREX_VERSION="0.3-RC2"
 RUN cd /var/lib/tomcat8/webapps && \
-    wget $ARTIFACTORY_URL/OCR4all_Web/$OCR4ALL_VERSION/OCR4all_Web-$OCR4ALL_VERSION.war -O OCR4all_Web.war && \
+    wget $ARTIFACTORY_URL/OCR4all_Web/$OCR4ALL_VERSION/OCR4all_Web-$OCR4ALL_VERSION.war -O ocr4all.war && \
     wget $ARTIFACTORY_URL/Larex/$LAREX_VERSION/Larex-$LAREX_VERSION.war -O Larex.war
 
 # Add webapps to tomcat
@@ -61,7 +61,7 @@ RUN ln -s /var/lib/tomcat8/common $CATALINA_HOME/common && \
     mkdir $CATALINA_HOME/temp && \
     mkdir $CATALINA_HOME/webapps && \
     mkdir $CATALINA_HOME/logs && \
-    ln -s /var/lib/tomcat8/webapps/OCR4all_Web.war $CATALINA_HOME/webapps && \
+    ln -s /var/lib/tomcat8/webapps/ocr4all.war $CATALINA_HOME/webapps && \
     ln -s /var/lib/tomcat8/webapps/Larex.war $CATALINA_HOME/webapps
 
 
