@@ -32,8 +32,8 @@ RUN cd /opt && git clone -b master https://gitlab2.informatik.uni-wuerzburg.de/c
 
 # Install calamari, make all calamari scripts available to JAVA environment
 ## calamari from source with version: v1.0.5
-ARG CALAMARI_COMMIT="7fdba985f0e234332ee1987abcc83619773b5a8c"
-RUN cd /opt && git clone https://github.com/maxnth/calamari.git && \
+ARG CALAMARI_COMMIT="d293871c40c105f38e5528944fc39f04eb7649a7"
+RUN cd /opt && git clone -b feature/pageXML_word_level https://github.com/maxnth/calamari.git && \
     cd calamari && git reset --hard ${CALAMARI_COMMIT} && \
     python3 setup.py install && \
     for CALAMARI_SCRIPT in `cd /usr/local/bin && ls calamari-*`; \
