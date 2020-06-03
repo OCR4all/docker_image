@@ -46,7 +46,7 @@ The container will be started by default after executing the `docker run` comman
 
 If you want to start the container again later use `docker ps -a` to list all available containers with their Container IDs and then use `docker start -ia ocr4all` to start the desired container.
 
-You can now access the project via following URL: http://localhost:8080/OCR4all_Web/
+You can now access the project via following URL: http://localhost:8080/ocr4all/
 
 ### Updating
 #### From Docker Hub:
