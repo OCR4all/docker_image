@@ -86,7 +86,7 @@ If you want to start the container again later use `docker ps -a` to list all av
 
 Because the entrypoint has changed, processes will not start automatically and the following command needs to be executed after the container startup:
 ```
-/usr/bin/supervisord
+supervisord -c /supervisord.conf
 ```
 
 For information on how to update the project take a look into the commands within the [Dockerfile](Dockerfile).

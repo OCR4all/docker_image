@@ -1,7 +1,5 @@
-FROM ls6uniwue/ocr4all_base:latest
+FROM ocr4all_04rc1:latest
 
-# Start processes when container is started
-ENTRYPOINT [ "/usr/bin/supervisord" ]
 
 ARG ARTIFACTORY_URL=http://artifactory-ls6.informatik.uni-wuerzburg.de/artifactory/libs-snapshot/de/uniwue
 
@@ -66,7 +64,7 @@ RUN ln -s /var/lib/tomcat8/common $CATALINA_HOME/common && \
 
 
 # Put supervisor process manager configuration to container
-COPY supervisord.conf /etc/supervisor/conf.d
+COPY supervisord.conf .
 
 # Create index.html for calling url without tool url part!
 COPY index.html /usr/share/tomcat8/webapps/ROOT/index.html
@@ -74,3 +72,6 @@ COPY index.html /usr/share/tomcat8/webapps/ROOT/index.html
 # Copy larex.config
 COPY larex.config /larex.config
 ENV LAREX_CONFIG=/larex.config
+
+# Start processes when container is started
+ENTRYPOINT [ "supervisord", "-c", "supervisord.conf"]
