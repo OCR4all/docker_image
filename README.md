@@ -8,7 +8,7 @@ These instructions will get you a [Docker container](https://www.docker.com/what
 
 ### Prerequisites
 
-[Docker](https://www.docker.com) (for installation instructions see the [Official Installation Guide](https://docs.docker.com/install/))
+[Docker](https://www.docker.com) (for detailed installation instructions see the [Official Installation Guide](https://docs.docker.com/install/))
 
 ### Installing
 
@@ -91,13 +91,6 @@ supervisord -c /supervisord.conf
 
 For information on how to update the project take a look into the commands within the [Dockerfile](Dockerfile).
 
-### Updated Dockerfile
-
-The Dockerfile in branch `update-dockerfile` does not build OCR4all_Web, LAREX and GTC-Web anymore but downloads them 
-from the [artifactory of LS 6 of Uni Würzburg](http://artifactory-ls6.informatik.uni-wuerzburg.de/artifactory/webapp/#/home).
-To update them, you have to publish a new version to the artifactory and update the download link in the Dockerfile.
-
-**Caution:** Larex needs to be (mvn) packaged with the option `directrequest` in `larex.config` enabled (uncommented).
 
 ## Built With
 
