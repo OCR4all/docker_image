@@ -1,4 +1,4 @@
-FROM ocr4all_04rc1:latest
+FROM ls6uniwue/ocr4all_base:latest
 
 
 ARG ARTIFACTORY_URL=http://artifactory-ls6.informatik.uni-wuerzburg.de/artifactory/libs-snapshot/de/uniwue
