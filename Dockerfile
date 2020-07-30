@@ -42,11 +42,11 @@ RUN cd /opt && git clone -b feature/pageXML_word_level https://github.com/maxnth
 ARG HELPER_SCRIPTS_COMMIT="6ecee08747c301216c7a6da54a328fdacdb4a5fe"
 RUN cd /opt && git clone -b master https://github.com/OCR4all/OCR4all_helper-scripts.git && \
     cd OCR4all_helper-scripts && git reset --hard ${HELPER_SCRIPTS_COMMIT} && \
-    python3 setup.py install 
+    python3 setup.py install
 
 # Download maven project
-ENV OCR4ALL_VERSION="0.4-RC1" \
-    LAREX_VERSION="0.3.1"
+ENV OCR4ALL_VERSION="0.4.0" \
+    LAREX_VERSION="0.4-RC1"
 RUN cd /var/lib/tomcat8/webapps && \
     wget $ARTIFACTORY_URL/ocr4all/$OCR4ALL_VERSION/ocr4all-$OCR4ALL_VERSION.war -O ocr4all.war && \
     wget $ARTIFACTORY_URL/Larex/$LAREX_VERSION/Larex-$LAREX_VERSION.war -O Larex.war
