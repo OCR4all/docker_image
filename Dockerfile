@@ -1,7 +1,5 @@
 FROM ls6uniwue/ocr4all_base:latest
 
-# Start processes when container is started
-ENTRYPOINT [ "/usr/bin/supervisord" ]
 
 ARG ARTIFACTORY_URL=http://artifactory-ls6.informatik.uni-wuerzburg.de/artifactory/libs-snapshot/de/uniwue
 
@@ -47,10 +45,10 @@ RUN cd /opt && git clone -b master https://github.com/OCR4all/OCR4all_helper-scr
     python3 setup.py install 
 
 # Download maven project
-ENV OCR4ALL_VERSION="0.3.0" \
-    LAREX_VERSION="0.3.1"
+ENV OCR4ALL_VERSION="0.4.0" \
+    LAREX_VERSION="0.4.0"
 RUN cd /var/lib/tomcat8/webapps && \
-    wget $ARTIFACTORY_URL/OCR4all_Web/$OCR4ALL_VERSION/OCR4all_Web-$OCR4ALL_VERSION.war -O ocr4all.war && \
+    wget $ARTIFACTORY_URL/ocr4all/$OCR4ALL_VERSION/ocr4all-$OCR4ALL_VERSION.war -O ocr4all.war && \
     wget $ARTIFACTORY_URL/Larex/$LAREX_VERSION/Larex-$LAREX_VERSION.war -O Larex.war
 
 # Add webapps to tomcat
@@ -66,7 +64,7 @@ RUN ln -s /var/lib/tomcat8/common $CATALINA_HOME/common && \
 
 
 # Put supervisor process manager configuration to container
-COPY supervisord.conf /etc/supervisor/conf.d
+COPY supervisord.conf .
 
 # Create index.html for calling url without tool url part!
 COPY index.html /usr/share/tomcat8/webapps/ROOT/index.html
@@ -74,3 +72,6 @@ COPY index.html /usr/share/tomcat8/webapps/ROOT/index.html
 # Copy larex.config
 COPY larex.config /larex.config
 ENV LAREX_CONFIG=/larex.config
+
+# Start processes when container is started
+ENTRYPOINT [ "supervisord", "-c", "supervisord.conf"]
