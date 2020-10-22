@@ -39,14 +39,14 @@ RUN cd /opt && git clone -b feature/pageXML_word_level https://github.com/maxnth
     done
 
 # Install helper scripts to make all scripts available to JAVA environment
-ARG HELPER_SCRIPTS_COMMIT="6ecee08747c301216c7a6da54a328fdacdb4a5fe"
+ARG HELPER_SCRIPTS_COMMIT="7e9705ba44f4e4e49c49631ed4961abf2f95f699"
 RUN cd /opt && git clone -b master https://github.com/OCR4all/OCR4all_helper-scripts.git && \
     cd OCR4all_helper-scripts && git reset --hard ${HELPER_SCRIPTS_COMMIT} && \
     python3 setup.py install
 
 # Download maven project
-ENV OCR4ALL_VERSION="0.5-RC1" \
-    LAREX_VERSION="0.5-RC2"
+ENV OCR4ALL_VERSION="0.5-RC2" \
+    LAREX_VERSION="0.5-RC3"
 RUN cd /var/lib/tomcat8/webapps && \
     wget $ARTIFACTORY_URL/ocr4all/$OCR4ALL_VERSION/ocr4all-$OCR4ALL_VERSION.war -O ocr4all.war && \
     wget $ARTIFACTORY_URL/Larex/$LAREX_VERSION/Larex-$LAREX_VERSION.war -O Larex.war
