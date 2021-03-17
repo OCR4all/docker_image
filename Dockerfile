@@ -39,7 +39,7 @@ RUN cd /opt && git clone -b feature/pageXML_word_level https://github.com/maxnth
     done
 
 # Install helper scripts to make all scripts available to JAVA environment
-ARG HELPER_SCRIPTS_COMMIT="7e9705ba44f4e4e49c49631ed4961abf2f95f699"
+ARG HELPER_SCRIPTS_COMMIT="36807ad07a933aac1e7b358b9cbb42325aef22d3"
 RUN cd /opt && git clone -b master https://github.com/OCR4all/OCR4all_helper-scripts.git && \
     cd OCR4all_helper-scripts && git reset --hard ${HELPER_SCRIPTS_COMMIT} && \
     python3 setup.py install 
