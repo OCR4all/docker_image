@@ -1,0 +1,14 @@
+version: "3"
+services:
+  latest:
+    build:
+      context: .
+    image: uniwuezpd/ocr4all:latest
+  staging:
+    build:
+      context: .
+    image: uniwue/ocr4all:staging
+  dev:
+    build:
+      context: .
+    image: uniwuezpd/ocr4all:dev

@@ -19,7 +19,7 @@ From Docker Hub:
 or
 
 From Source:
-* Download the [Dockerfile](Dockerfile) first and enter the directory that contains it with a command line tool.
+* Download the [Dockerfile](IdeaProjects/docker_image/Dockerfile) first and enter the directory that contains it with a command line tool.
 
 * Execute the following command inside the directory: ``` docker build -t <IMAGE_NAME> . ``` 
 
@@ -89,7 +89,7 @@ Because the entrypoint has changed, processes will not start automatically and t
 /usr/bin/supervisord
 ```
 
-For information on how to update the project take a look into the commands within the [Dockerfile](Dockerfile).
+For information on how to update the project take a look into the commands within the [Dockerfile](IdeaProjects/docker_image/Dockerfile).
 
 ### Updated Dockerfile
 
