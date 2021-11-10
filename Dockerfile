@@ -4,12 +4,11 @@ FROM uniwuezpd/ocr4all_base:$BASE_IMAGE_TAG
 
 ARG OCR4LL_BRANCH=dev
 ARG LAREX_BRANCH=dev
-ARG OCR4ALL_HELPER_SCRIPTS_COMMIT=36807ad07a933aac1e7b358b9cbb42325aef22d3
+ARG OCR4ALL_HELPER_SCRIPTS_BRANCH=master
 
 # Install helper scripts to make all scripts available to JAVA environment
-RUN git clone -b master https://github.com/OCR4all/OCR4all_helper-scripts /opt/OCR4all_helper-scripts
+RUN git clone -b ${OCR4ALL_HELPER_SCRIPTS_BRANCH} https://github.com/OCR4all/OCR4all_helper-scripts /opt/OCR4all_helper-scripts
 WORKDIR /opt/OCR4all_helper-scripts
-RUN git reset --hard ${OCR4ALL_HELPER_SCRIPTS_COMMIT}
 RUN python3 -m pip install .
 
 # Clone OCR4all and LAREX
