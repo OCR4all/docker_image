@@ -1,9 +1,9 @@
-ARG BASE_IMAGE_TAG=dev
+ARG BASE_IMAGE_TAG=staging
 
 FROM uniwuezpd/ocr4all_base:$BASE_IMAGE_TAG
 
-ARG OCR4LL_BRANCH=dev
-ARG LAREX_BRANCH=dev
+ARG OCR4LL_BRANCH=staging
+ARG LAREX_BRANCH=staging
 ARG OCR4ALL_HELPER_SCRIPTS_BRANCH=master
 
 # Install helper scripts to make all scripts available to JAVA environment
