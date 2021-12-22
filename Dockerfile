@@ -28,5 +28,5 @@ RUN rm -r /tmp/*
 COPY index.html /usr/share/tomcat/webapps/ROOT/index.html
 
 # Copy larex.config
-COPY larex.config /larex.config
-ENV LAREX_CONFIG=/larex.config
+COPY larex.properties /larex.properties
+ENV LAREX_CONFIG=/larex.properties

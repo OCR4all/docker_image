@@ -7,7 +7,7 @@ services:
   staging:
     build:
       context: .
-    image: uniwue/ocr4all:staging
+    image: uniwuezpd/ocr4all:staging
   dev:
     build:
       context: .
