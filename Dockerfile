@@ -27,6 +27,6 @@ RUN rm -r /tmp/*
 # Create index.html for calling url without tool url part!
 COPY index.html /usr/share/tomcat/webapps/ROOT/index.html
 
-# Copy larex.config
+# Copy larex.properties
 COPY larex.properties /larex.properties
 ENV LAREX_CONFIG=/larex.properties
