@@ -14,7 +14,7 @@ These instructions will get you a [Docker container](https://www.docker.com/what
 
 #### Get the Docker Image
 From Docker Hub:
-* Execute the following command ```docker pull ls6uniwue/ocr4all```
+* Execute the following command ```docker pull uniwuezpd/ocr4all```
 
 or
 
@@ -23,7 +23,7 @@ From Source:
 
 * Execute the following command inside the directory: ``` docker build -t <IMAGE_NAME> . ``` 
 
-(We recommend ls6uniwue/ocr4all as image name)
+(We recommend uniwuezpd/ocr4all as image name)
 
 #### Initialize Container
 With the help of the image a container can now be created with the following command:
@@ -38,7 +38,7 @@ docker run \
 ```
 
 Explanation of variables used above:
-* `<IMAGE_NAME>` - Name of the Docker image e.g. ls6uniwue/ocr4all
+* `<IMAGE_NAME>` - Name of the Docker image e.g. uniwuezpd/ocr4all
 * `<OCR_DATA_DIR>` - Directory in which the OCR data is located on your local machine
 * `<OCR_MODEL_DIR>` - Directory in which the OCR models are located on your local machine
 
@@ -55,7 +55,7 @@ Updating the image can easily be done via the docker hub if the image has been p
 
 The following command will update the image:
 ```
-docker pull ls6uniwue/ocr4all
+docker pull uniwuezpd/ocr4all
 ```
 
 #### From Source:
@@ -91,14 +91,6 @@ Because the entrypoint has changed, processes will not start automatically and t
 
 For information on how to update the project take a look into the commands within the [Dockerfile](IdeaProjects/docker_image/Dockerfile).
 
-### Updated Dockerfile
-
-The Dockerfile in branch `update-dockerfile` does not build OCR4all_Web, LAREX and GTC-Web anymore but downloads them 
-from the [artifactory of LS 6 of Uni Würzburg](http://artifactory-ls6.informatik.uni-wuerzburg.de/artifactory/webapp/#/home).
-To update them, you have to publish a new version to the artifactory and update the download link in the Dockerfile.
-
-**Caution:** Larex needs to be (mvn) packaged with the option `directrequest` in `larex.config` enabled (uncommented).
-
 ## Built With
 
 * [Docker](https://www.docker.com) - Platform and Software Deployment
@@ -113,8 +105,3 @@ To update them, you have to publish a new version to the artifactory and update 
 * [OCRopus](https://github.com/tmbdev/ocropy) - Collection of document analysis programs
 * [calamari](https://github.com/ChWick/calamari) - OCR Engine based on OCRopy and Kraken
 
-## Authors
-
-* **Christian Reul** - *Responsible for OCR processes* - Email: christian.reul@uni-wuerzburg.de
-* **Dennis Christ** - *Developer* - Email: dennis.christ@stud-mail.uni-wuerzburg.de
-* **Alexander Hartelt** - *Developer* - Email: alexander.hartelt@stud-mail.uni-wuerzburg.de
