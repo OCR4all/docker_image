@@ -6,6 +6,9 @@ ARG OCR4LL_BRANCH=master
 ARG LAREX_BRANCH=master
 ARG OCR4ALL_HELPER_SCRIPTS_BRANCH=master
 
+ENV OCR4ALL_VERSION="0.6.1"
+ENV LAREX_VERSION="0.7.0"
+
 # Install helper scripts to make all scripts available to JAVA environment
 RUN git clone -b ${OCR4ALL_HELPER_SCRIPTS_BRANCH} https://github.com/OCR4all/OCR4all_helper-scripts /opt/OCR4all_helper-scripts
 WORKDIR /opt/OCR4all_helper-scripts
