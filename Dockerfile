@@ -1,6 +1,6 @@
-ARG BASE_IMAGE_TAG=latest
+ARG BASE_IMAGE_TAG=gpu
 
-FROM ocr4all-base
+FROM uniwuezpd/ocr4all_base:$BASE_IMAGE_TAG
 
 ARG OCR4LL_BRANCH=master
 ARG LAREX_BRANCH=master
@@ -20,21 +20,18 @@ RUN git clone --depth 1 --branch ${LAREX_BRANCH} https://github.com/OCR4all/LARE
 # Build OCR4all and LAREX
 WORKDIR /tmp/OCR4all
 RUN mvn clean install -f pom.xml
-RUN cp target/ocr4all.war /var/lib/tomcat9/webapps/.
+RUN cp target/ocr4all.war /usr/local/tomcat/webapps/.
 WORKDIR /tmp/LAREX
 RUN mvn clean install -f pom.xml
-RUN cp target/Larex.war /var/lib/tomcat9/webapps/.
+RUN cp target/Larex.war /usr/local/tomcat/webapps/.
 
 RUN rm -r /tmp/*
 
 # Create index.html for calling url without tool url part!
-COPY index.html /usr/share/tomcat/webapps/ROOT/index.html
+COPY index.html /usr/local/tomcat/webapps/ROOT/index.html
 
 # Copy larex.properties
 COPY larex.properties /larex.properties
 ENV LAREX_CONFIG=/larex.properties
 
-# Add admin/admin user
-COPY server.xml /usr/share/tomcat9/conf/server.xml
-
-CMD ["/usr/share/tomcat9/bin/catalina.sh", "run"]
+CMD ["/usr/local/tomcat/bin/catalina.sh", "run"]
